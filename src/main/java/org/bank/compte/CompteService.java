@@ -1,6 +1,7 @@
 package org.bank.compte;
 
 import org.bank.entite.Compte;
+import org.bank.entite.User;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -16,7 +17,7 @@ public class CompteService {
 
     // Crée un nouveau compte avec UUID aléatoire et solde = 0
     public Compte create() {
-        String accountId = UUID.randomUUID().toString();
+        String accountId = User.getId().toString();
         UUID ownerUserId = UUID.randomUUID();
         BigDecimal solde = BigDecimal.ZERO;
 
@@ -36,7 +37,7 @@ public class CompteService {
     public void afficherTous() {
         repository.findAll().forEach(compte -> {
             System.out.println("Compte ID: " + compte.getAccountId() +
-                    " | Propriétaire: " + compte.getOwnerUserId() +
+                    " | Propriétaire: " +  User.getFullName()+
                     " | Solde: " + compte.getBalance() +
                     " | Créé le: " + compte.getCreatedAt() +
                     " | Actif: " + compte.getActive());

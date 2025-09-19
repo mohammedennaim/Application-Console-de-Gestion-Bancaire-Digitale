@@ -30,7 +30,7 @@ public class CompteController {
             System.out.println("4. Ajouter à un compte");
             System.out.println("5. Retirer d’un compte");
             System.out.println("6. Bloquer un compte");
-            System.out.println("0. Exit");
+            System.out.println("0. logout");
             System.out.print("Choisissez une option: ");
             choix = scanner.nextInt();
             scanner.nextLine(); // éviter bug scanner
@@ -39,37 +39,37 @@ public class CompteController {
                 case 1 -> compteService.afficherTous();
                 case 2 -> {
                     compteService.create();
-                    System.out.println("✅ Compte créé !");
+                    System.out.println("Compte créé !");
                 }
                 case 3 -> afficherSolde();
                 case 4 -> ajouter();
                 case 5 -> retirer();
                 case 6 -> bloquerCompte();
-                case 0 -> System.out.println("Au revoir!");
-                default -> System.out.println("❌ Option invalide!");
+                case 0 -> authService.logout();
+                default -> System.out.println("Option invalide!");
             }
         } while (choix != 0);
     }
 
     private void afficherSolde() {
-        System.out.print("➡️ Entrez l’ID du compte : ");
+        System.out.print("Entrez l’ID du compte : ");
         String id = scanner.nextLine();
         Compte compte = compteService.getById(id);
 
         if (compte != null) {
-            System.out.println("💰 Solde du compte " + compte.getAccountId() + " : " + compte.getBalance());
+            System.out.println("Solde du compte " + compte.getAccountId() + " : " + compte.getBalance());
         } else {
-            System.out.println("❌ Compte introuvable !");
+            System.out.println("Compte introuvable !");
         }
     }
 
     private void ajouter() {
-        System.out.print("➡️ Entrez l’ID du compte : ");
+        System.out.print("Entrez l’ID du compte : ");
         String id = scanner.nextLine();
         Compte compte = compteService.getById(id);
 
         if (compte == null) {
-            System.out.println("❌ Compte introuvable !");
+            System.out.println("Compte introuvable !");
             return;
         }
 
@@ -77,23 +77,23 @@ public class CompteController {
         BigDecimal montant = scanner.nextBigDecimal();
 
         if (montant.compareTo(BigDecimal.ZERO) <= 0) {
-            System.out.println("❌ Montant invalide !");
+            System.out.println("Montant invalide !");
             return;
         }
 
         BigDecimal nouveauSolde = compte.getBalance().add(montant);
         compteService.updateSolde(compte, nouveauSolde);
 
-        System.out.println("✅ Nouveau solde : " + nouveauSolde);
+        System.out.println("Nouveau solde : " + nouveauSolde);
     }
 
     private void retirer() {
-        System.out.print("➡️ Entrez l’ID du compte : ");
+        System.out.print("Entrez l’ID du compte : ");
         String id = scanner.nextLine();
         Compte compte = compteService.getById(id);
 
         if (compte == null) {
-            System.out.println("❌ Compte introuvable !");
+            System.out.println("Compte introuvable !");
             return;
         }
 
@@ -101,31 +101,31 @@ public class CompteController {
         BigDecimal montant = scanner.nextBigDecimal();
 
         if (montant.compareTo(BigDecimal.ZERO) <= 0) {
-            System.out.println("❌ Montant invalide !");
+            System.out.println("Montant invalide !");
             return;
         }
 
         if (montant.compareTo(compte.getBalance()) > 0) {
-            System.out.println("❌ Solde insuffisant !");
+            System.out.println("Solde insuffisant !");
             return;
         }
 
         BigDecimal nouveauSolde = compte.getBalance().subtract(montant);
         compteService.updateSolde(compte, nouveauSolde);
 
-        System.out.println("✅ Nouveau solde : " + nouveauSolde);
+        System.out.println("Nouveau solde : " + nouveauSolde);
     }
 
     private void bloquerCompte() {
-        System.out.print("➡️ Entrez l’ID du compte : ");
+        System.out.print("Entrez l’ID du compte : ");
         String id = scanner.nextLine();
         Compte compte = compteService.getById(id);
 
         if (compte != null) {
             compteService.block(compte);
-            System.out.println("✅ Compte bloqué !");
+            System.out.println("Compte bloqué !");
         } else {
-            System.out.println("❌ Compte introuvable !");
+            System.out.println("Compte introuvable !");
         }
     }
 }

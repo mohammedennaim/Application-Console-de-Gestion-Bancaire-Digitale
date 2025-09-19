@@ -16,7 +16,6 @@ public class AuthController {
         while (true) {
             System.out.println("1. Register");
             System.out.println("2. Login");
-            System.out.println("3. Logout");
             System.out.println("0. Exit");
 
             System.out.print("Choix: ");
@@ -25,7 +24,6 @@ public class AuthController {
             switch (choice) {
                 case 1 -> handleRegister();
                 case 2 -> handleLogin();
-                case 3 -> authService.logout();
                 case 0 -> {
                     System.out.println("Au revoir !");
                     return;

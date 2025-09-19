@@ -4,8 +4,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class User {
-    private UUID id;
-    private String fullName;
+    private static UUID id;
+    private static String fullName;
     private static String email;
     private static String passwordHash;
 
@@ -16,8 +16,8 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public UUID getId() { return id; }
-    public String getFullName() { return fullName; }
+    public static UUID getId() { return id; }
+    public static String getFullName() { return fullName; }
     public static String getEmail() { return email; }
     public static String getPasswordHash() { return passwordHash; }
 
